@@ -1,0 +1,3 @@
+python-splitwise
+fastapi
+uvicorn

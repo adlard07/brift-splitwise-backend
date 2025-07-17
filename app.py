@@ -25,6 +25,10 @@ async def redirect(request: Request):
 		oauth_verifier=creds['oauth_verifier']
 		)
     creds['access_token'] = access_token	
+
+    # Set access token for Splitwise object
+	s_obj.setAccessToken(creds['access_token'])
+	
 	return RedirectResponse(url=redirect_url, status_code=302)
 
 

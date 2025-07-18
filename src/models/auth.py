@@ -58,15 +58,28 @@ class SplitwiseAuthInitializer:
             logging.error(f"Failed to retrieve access token: {str(e)}")
             raise
 
-	def save_credentials(creds, filename="creds.json"):
-	    """Save credentials to a JSON file."""
-	    try:
-	        with open(filename, 'w') as f:
-	            json.dump(creds, f, indent=4)
-	        logging.info(f"Credentials saved to {filename}.")
-	    except Exception as e:
-	        logging.error(f"Failed to save credentials: {str(e)}")
-	        raise
+
+    def save_credentials(self, creds, filename):
+        """Save credentials to a JSON file."""
+        try:
+            os.makedirs(os.path.dirname(filename), exist_ok=True)
+            with open(filename, 'w') as f:
+                json.dump(creds, f, indent=4)
+            logging.info(f"Credentials saved to {filename}.")
+        except (IOError, PermissionError, TypeError) as e:
+            logging.error(f"Failed to save credentials: {str(e)}")
+            raise
+
+
+    def load_credentials(self, filename):
+        try:
+            with open(filename, 'r') as f:
+                data = json.load(f)
+                return data
+            logging.info(f'Credentials loaded from {filename}')
+        except Exception as e:
+            logging.error(f"Failed to load credentials. Error occured: {str(e)}")
+            raise
 
 if __name__ == "__main__":
     try:

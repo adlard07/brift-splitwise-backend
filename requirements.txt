@@ -1,3 +1,4 @@
-python-splitwise
+splitwise
 fastapi
 uvicorn
+psycopg2-binary
